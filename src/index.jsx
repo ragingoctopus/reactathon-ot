@@ -32,8 +32,6 @@ class Index extends Component {
           </section>
         </header>
         <section className="searchbar">
-          <form>
-            <input className="search" type="text" placeholder="Search for dining"/>
           <form onSubmit={(e) => {
             e.preventDefault()
             console.log(this.state.text)
