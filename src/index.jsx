@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { VoicePlayer } from 'react-voice-components'
 import './css/index.css';
 
 class Index extends Component {
@@ -17,9 +18,14 @@ class Index extends Component {
             <input className="search" type="text" placeholer="Search for dining"/>
           </form>
         </section>
-        <section className="content-container speech-button">
+        <section className="content-contai
+        ner speech-button">
             <p><i className="fa fa-microphone fa-5x icon"></i></p>
         </section>
+        <VoicePlayer
+    		play
+    		text="React voice player demonstration Cool"
+  		/>,
       </main>
 		</div>
 	  )
