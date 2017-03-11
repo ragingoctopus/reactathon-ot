@@ -61,7 +61,7 @@ img {
 @media screen
   and (min-width: 1279px) {
     body {
-      background-color: yellow;
+      background-color: white;
     }
 
     img {
