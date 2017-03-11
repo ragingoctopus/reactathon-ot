@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { VoicePlayer } from 'react-voice-components'
+import RecognitionV from './component/RecognitionV';
 import './css/index.css';
 
 class Index extends Component {
+	constructor (props) {
+    super(props)
+    this.state = {
+    	showText: true
+    };
+  }
+
 	render() {
 	  return (
 		<div>
@@ -15,17 +22,14 @@ class Index extends Component {
         </header>
         <section className="searchbar">
           <form>
-            <input className="search" type="text" placeholer="Search for dining"/>
+            <input className="search" type="text" placeholder="Search for dining"/>
           </form>
         </section>
         <section className="content-contai
         ner speech-button">
             <p><i className="fa fa-microphone fa-5x icon"></i></p>
         </section>
-        <VoicePlayer
-    		play
-    		text="React voice player demonstration Cool"
-  		/>,
+  			<RecognitionV />
       </main>
 		</div>
 	  )
