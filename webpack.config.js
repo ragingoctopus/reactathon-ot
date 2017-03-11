@@ -22,13 +22,16 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css!sass'),
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader'),
       },
     ],
   },
   plugins: [
-
+    new ExtractTextPlugin({
+      filename: 'css/[name].css',
+      allChunks: true,
+    }),
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx'],
