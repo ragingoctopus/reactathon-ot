@@ -15,8 +15,6 @@ router.get('/availability/:id', (req, res) => {
   const rid = req.params.id;
   const availUrl = 'https://platform.otqa.com/availability';
 
-  console.log(spec);
-
   const options = {
     uri: `${availUrl}/${rid}`,
     method: 'GET',
@@ -31,11 +29,14 @@ router.get('/availability/:id', (req, res) => {
 
   rp(options)
     .then(response => {
-      // console.log('avail response', response)
-      return res.status(200).send(response);
+      const urls = [];
+      const result = JSON.parse(response)
+      _.each(result.times_available, obj => {
+        urls.push(obj.booking_url);
+      })
+      return res.status(200).send(urls);
     })
     .catch(err => {
-      // console.log(err)
       return res.status(400).send(err.message);
     })
 });
@@ -56,7 +57,6 @@ router.get('/listings', (req, res) => {
         return res.status(200).send(response.items);
       }
       const item = _.filter(response.items, item => {
-        console.log(item.name.indexOf(name))
         return item.name.indexOf(name) > -1
       })
       return res.status(200).send(item);
