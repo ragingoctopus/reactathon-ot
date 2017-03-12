@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
@@ -8,6 +9,8 @@ const restaurant = require('./routes/restaurant');
 const reservation = require('./routes/reservation');
 
 app.use(express.static('dist'))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', "*");
