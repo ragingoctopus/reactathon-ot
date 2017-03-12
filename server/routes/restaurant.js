@@ -52,8 +52,12 @@ router.get('/listings', (req, res) => {
 
   rp(options)
     .then(response => {
+      if (!name) {
+        return res.status(200).send(response.items);
+      }
       const item = _.filter(response.items, item => {
-        return item.name === name
+        console.log(item.name.indexOf(name))
+        return item.name.indexOf(name) > -1
       })
       return res.status(200).send(item);
     })
