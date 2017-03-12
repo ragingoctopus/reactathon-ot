@@ -5,6 +5,7 @@ import VoicePlayer from './lib/VoicePlayer';
 import axios from 'axios';
 import './css/index.css';
 import Listings from './api/Listings';
+import Availability from './api/Availability';
 
 class Index extends Component {
   constructor(){
@@ -31,7 +32,7 @@ class Index extends Component {
 
   handleSubmit(){
     var val = this.state.text
-    axios.get('http://localhost:3000/restaurant/list', {
+    axios.get('http://localhost:3000/restaurant/listings', {
       headers: {
         'Access-Control-Allow-Origin': true
       }
@@ -43,6 +44,12 @@ class Index extends Component {
 	render() {
 
 		console.log('listings', Listings());
+		console.log('availability of restaurant', Availability(334879, {
+			start_date_time : '2017-03-29T19:00',
+			party_size: 2,
+			forward_minutes: 120,
+			backward_minutes: 30
+		}));
 
 	  return (
 		<div>
@@ -56,30 +63,30 @@ class Index extends Component {
             console.log(this.state.text)
             this.handleSubmit()
           }}>
-            <input 
-              className="search" 
-              type="text" 
-              placeholer="Search for dining"
-              vaue={this.state.text}
+            <input
+              className="search"
+              type="text"
+              placeholder="Search for dining"
+              value={this.state.text}
               onChange={(e) => this.setState({text: e.target.value})}
             />
-            <input 
-              type='submit' 
-              value='submit' 
+            <input
+              type='submit'
+              value='submit'
             />
           </form>
         </section>
         <section className="content-container speech-button">
         	<RecognitionV voiceResult={this.voiceResult.bind(this)}/>
         	{this.state.playVoice && (
-        		<VoicePlayer 
+        		<VoicePlayer
         	  play
     				text={this.state.voiceText}
     				onEnd={this.onEnd.bind(this)}
     				/>
     			)}
         </section>
-  			
+
       </main>
 		</div>
 	  )
