@@ -63,6 +63,10 @@ img {
   margin-bottom: 3vh;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 .speech-button {
   display: flex;
   justify-content: center;
