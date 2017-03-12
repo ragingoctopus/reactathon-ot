@@ -9,7 +9,7 @@
 6 silly lifecycle reactathon-ot@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle reactathon-ot@1.0.0~start: reactathon-ot@1.0.0
 8 verbose lifecycle reactathon-ot@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle reactathon-ot@1.0.0~start: PATH: /Users/cyril_yu/.nvm/versions/node/v7.7.1/lib/node_modules/npm/bin/node-gyp-bin:/Users/cyril_yu/ca_project/hackathon/reactathon-ot/node_modules/.bin:/Users/cyril_yu/.gvm/pkgsets/go1.8/global/bin:/Users/cyril_yu/.gvm/gos/go1.8/bin:/Users/cyril_yu/.gvm/pkgsets/go1.8/global/overlay/bin:/Users/cyril_yu/.gvm/bin:/Users/cyril_yu/.gvm/bin:/Users/cyril_yu/.nvm/versions/node/v7.7.1/bin:/Users/cyril_yu/.yarn/bin:/Users/cyril_yu/.pyenv/shims:/Users/cyril_yu/.pyenv/bin:/Users/cyril_yu/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+9 verbose lifecycle reactathon-ot@1.0.0~start: PATH: /Users/cyril_yu/.nvm/versions/node/v7.7.1/lib/node_modules/npm/bin/node-gyp-bin:/Users/cyril_yu/ca_project/hackathon/reactathon-ot/node_modules/.bin:/Users/cyril_yu/.gvm/pkgsets/go1.8/global/bin:/Users/cyril_yu/.gvm/gos/go1.8/bin:/Users/cyril_yu/.gvm/pkgsets/go1.8/global/overlay/bin:/Users/cyril_yu/.gvm/bin:/Users/cyril_yu/.gvm/bin:/Users/cyril_yu/.yarn/bin:/Users/cyril_yu/.nvm/versions/node/v7.7.1/bin:/Users/cyril_yu/.pyenv/shims:/Users/cyril_yu/.pyenv/bin:/Users/cyril_yu/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 10 verbose lifecycle reactathon-ot@1.0.0~start: CWD: /Users/cyril_yu/ca_project/hackathon/reactathon-ot
 11 silly lifecycle reactathon-ot@1.0.0~start: Args: [ '-c', 'node server/server.js' ]
 12 silly lifecycle reactathon-ot@1.0.0~start: Returned: code: 1  signal: null
