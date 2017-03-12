@@ -8,6 +8,7 @@ import './css/index.css';
 import Listings from './api/Listings';
 import Availability from './api/Availability';
 import Reservation from './api/Reservation';
+import Notification from './api/Notification';
 
 class Index extends Component {
   constructor(){
@@ -137,7 +138,7 @@ class Index extends Component {
       }, () => {
         let restaurantTimes = 'Here are the the times for ' + name;
         context.state.restaurantTime.data.map((data, key) => {
-          restaurantTimes += '' + data.time;
+          restaurantTimes += '' + data.speach_time;
         })
 
         context.setState({ voiceText:restaurantTimes }, () => {
@@ -146,8 +147,10 @@ class Index extends Component {
       })
     })
 
+  }
 
-
+  sendTextNotification() {
+    Notification('+19495004259', 'Cafe Tiramisu', '2017/3/12 17:00')
   }
 
 	render() {
@@ -200,6 +203,9 @@ class Index extends Component {
     			)}
           <div className="speech-container">
             <a onClick={this.playBackNames.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-play fa-5x icon"></i></a>
+          </div>
+          <div className="speech-container">
+            <a onClick={this.sendTextNotification.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-envelope fa-5x icon"></i></a>
           </div>
         </section>
         {this.state.fetchedRestaurants && (

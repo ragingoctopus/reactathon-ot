@@ -27,7 +27,7 @@ router.get('/availability/:id', (req, res) => {
     .then(response => {
       const result = JSON.parse(response).times_available;
       _.each(result, obj => {
-        obj.speach_time = moment(obj.time).format('h:mm');
+        obj.speach_time = moment(obj.time).format('hmm');
         obj.time = moment(obj.time).format('YYYY/MM/DD h:mm');
       });
       return res.status(200).send(result);
