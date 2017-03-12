@@ -27,6 +27,9 @@ router.get(API.SEARCH, (req, res) => {
       backward_minutes: spec.backward_minutes,
       party_size: spec.party_size
     }
+  }
+});
+
 
 var headers = {
   Authorization: 'bearer 27037c67-f394-4cfd-ab51-069ac71132fb'
@@ -49,7 +52,7 @@ router.get('/list', (req, res) => {
       console.log(err)
       return res.send(400)
     })
-})
+});
 
 
 router.get('/availability', (req, res) => {
@@ -72,6 +75,6 @@ router.get('/availability', (req, res) => {
     .catch(err => {
       return res.statusCode(500).send('Research restaurant fail.')
     })
-})
+});
 
 module.exports = router;
