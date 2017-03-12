@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RecognitionV from './component/RecognitionV';
 import VoicePlayer from './lib/VoicePlayer';
+import RestaurantList from './component/RestaurantList';
 import axios from 'axios';
 import './css/index.css';
 
@@ -13,12 +14,73 @@ class Index extends Component {
     	playVoice: false,
     	voiceText: '',
     	text: '',
-      showText: true
+      showText: true,
+      fetchedRestaurants: true,
+      restaurants: [{
+      	name: "Cooking With Sherman",
+      	address: "2408 GitHub St.",
+      	city: "San Francisco",
+      	state: "CA",
+      	postal_code: "94102",
+      	phone_number: "1234567",
+      	reservation_url: "https://www.google.com"
+      },
+      {
+      	name: "Cooking With Sherman",
+      	address: "2408 GitHub St.",
+      	city: "San Francisco",
+      	state: "CA",
+      	postal_code: "94102",
+      	phone_number: "1234567",
+      	reservation_url: "https://www.google.com"
+      },
+      {
+      	name: "Cooking With Sherman",
+      	address: "2408 GitHub St.",
+      	city: "San Francisco",
+      	state: "CA",
+      	postal_code: "94102",
+      	phone_number: "1234567",
+      	reservation_url: "https://www.google.com"
+      },
+      {
+      	name: "Cooking With Sherman",
+      	address: "2408 GitHub St.",
+      	city: "San Francisco",
+      	state: "CA",
+      	postal_code: "94102",
+      	phone_number: "1234567",
+      	reservation_url: "https://www.google.com"
+      }]
     };
   }
 
   voiceResult(result) {
+  	let context = this;
   	console.log("Result: " + result);
+  	//Logic key words to do actions
+  	//Reserve
+  	//Cancel
+  	//Search
+
+  	let resultArray = result.toLowerCase().split(' ');
+  	//This will be the logic commands
+  	let keyword = resultArray[0];
+  	switch (keyword) {
+  		case "search": 
+  			this.setState({
+  				restaurants: [{
+  					name: resultArray[1]
+  				}]
+  			},
+  			context.handleSubmit()
+  			)
+  			
+  			break;
+  		default:
+  			break;
+  	}
+
   	this.setState({ voiceText:result }, () => {
   		this.setState({ playVoice: true });
   	});
@@ -29,13 +91,17 @@ class Index extends Component {
   }
 
   handleSubmit(){
+  	var context = this;
     var val = this.state.text
     axios.get('http://localhost:3000/restaurant/list', {
       headers: {
         'Access-Control-Allow-Origin': true
       }
     })
-    .then(data => console.log('asdfasdfasd', data))
+    .then(data => {
+    	context.setState({ fetchedRestaurants: true });
+    	console.log('asdfasdfasd', data)
+    })
     .catch( err => { throw new Error(err)})
   }
 
@@ -47,22 +113,18 @@ class Index extends Component {
             <img src="http://res.cloudinary.com/meetshermanchen-com/image/upload/v1489262593/Logo_horizontal_RGB_rrnfhk.png" alt="OpenTable" className="brand"/>
         </header>
         <section className="searchbar">
-          <form onSubmit={(e) => {
+          <form className="input-field" onSubmit={(e) => {
             e.preventDefault()
             console.log(this.state.text)
             this.handleSubmit()
           }}>
-            <input 
-              className="search" 
+            <input
               type="text" 
-              placeholer="Search for dining"
-              vaue={this.state.text}
+              placeholder="Location or Restaurant"
+              value={this.state.text}
               onChange={(e) => this.setState({text: e.target.value})}
             />
-            <input 
-              type='submit' 
-              value='submit' 
-            />
+            <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
           </form>
         </section>
         <section className="content-container speech-button">
@@ -75,6 +137,9 @@ class Index extends Component {
     				/>
     			)}
         </section>
+        {this.state.fetchedRestaurants && (
+    			<RestaurantList restaurants={this.state.restaurants} />
+    		)}
   			
       </main>
 		</div>

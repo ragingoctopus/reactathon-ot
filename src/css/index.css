@@ -35,14 +35,7 @@ img {
 
 .searchbar {
   width: 90vw;
-  margin-bottom: 5vh;
-}
-
-.search {
-  width: fill;
-  height: 5vh;
-  font-size: 2rem;
-  border: 2px solid #DA3743;;
+  margin-bottom: 3vh;
 }
 
 .speech-button {
@@ -50,8 +43,8 @@ img {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  height: 15vh;
-  width: 22vw;
+  height: 120px;
+  width: 120px;
   background-color: #DA3743;
 }
 
@@ -59,6 +52,18 @@ img {
   color: #FFFFFF;
 }
 
+.submit-btn {
+  float: right;
+  background-color: #DA3743;
+  border-radius: 5px;
+  width: 150px;
+  font-size: .8rem;
+}
+
+.restaurant-url, .restaurant-tel {
+  width: 50%;
+  display: inline-block;
+}
 /***** MATERIALIZE OVERRIDES ***/
 
   /* label color */
@@ -71,17 +76,17 @@ img {
    }
    /* label underline focus color */
    .input-field input[type=text]:focus {
-     border: 1px solid #000;
+     border-bottom: 2px solid red;
      box-shadow: 0 1px 0 0 #000;
    }
    /* valid color */
    .input-field input[type=text].valid {
-     border: 1px solid #000;
+     border-bottom: 2px solid red;
      box-shadow: 0 1px 0 0 #000;
    }
    /* invalid color */
    .input-field input[type=text].invalid {
-     border: 1px solid #000;
+     border-bottom: 2px solid red;
      box-shadow: 0 1px 0 0 #000;
    }
    /* icon prefix focus color */
@@ -89,12 +94,30 @@ img {
      color: #000;
    }
 
+   .waves-effect.waves-red {
+    background-color: #DA3743;
+   }
+
+  .waves-effect.waves-red:hover {
+    background-color: #DA3743;
+   }
+
+  .restaurant-list {
+    display: inline-block;
+    width: 33%;
+    height: 250px;
+  }
 /**** MEDIA QUERIES ****/
+@media screen and (max-width: 900px) {
+  .restaurant-list {
+    display: inline-block;
+    width: 49%;
+    height: 250px;
+  }
+}
+
 @media screen
-  and (min-width: 1279px) {
-    body {
-      background-color: white;
-    }
+  and (max-width: 700px) {
 
     img {
       max-width: 100%;
@@ -111,8 +134,11 @@ img {
       margin-bottom: 10vh;
     }
 
-    .speech-button {
-      height: 17.5vh;
-      width: 10vw;
+    .restaurant-list {
+      display: inline-block;
+      width: 100%;
+      height: 250px;
+      text-align: center;
     }
   }
+
