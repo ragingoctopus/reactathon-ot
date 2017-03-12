@@ -18,52 +18,25 @@ class Index extends Component {
     	text: '',
       showText: true,
       fetchedRestaurants: true,
-      restaurants: [{
-      	name: "Cooking With Sherman",
-      	address: "2408 GitHub St.",
-      	city: "San Francisco",
-      	state: "CA",
-      	postal_code: "94102",
-      	phone_number: "1234567",
-      	reservation_url: "https://www.google.com"
-      },
-      {
-      	name: "Cooking With Sherman",
-      	address: "2408 GitHub St.",
-      	city: "San Francisco",
-      	state: "CA",
-      	postal_code: "94102",
-      	phone_number: "1234567",
-      	reservation_url: "https://www.google.com"
-      },
-      {
-      	name: "Cooking With Sherman",
-      	address: "2408 GitHub St.",
-      	city: "San Francisco",
-      	state: "CA",
-      	postal_code: "94102",
-      	phone_number: "1234567",
-      	reservation_url: "https://www.google.com"
-      },
-      {
-      	name: "Cooking With Sherman",
-      	address: "2408 GitHub St.",
-      	city: "San Francisco",
-      	state: "CA",
-      	postal_code: "94102",
-      	phone_number: "1234567",
-      	reservation_url: "https://www.google.com"
-      }]
+      restaurants: []
     };
   }
-
+	handleClick(restaurantId){
+		var d = new Date();
+		var n = d.toISOString();
+		n = n.substring(0, 16);
+		var options = {
+			start_date_time: '2017-03-29T19:00',
+      forward_minutes: 120,
+			backward_minutes: 30,
+      party_size: 2
+		}
+		console.log(restaurantId,'restaurantIdrestaurantIdrestaurantId')
+		Availability(334879, options)
+	}
   voiceResult(result) {
   	let context = this;
   	console.log("Result: " + result);
-  	//Logic key words to do actions
-  	//Reserve
-  	//Cancel
-  	//Search
 
   	let resultArray = result.toLowerCase().split(' ');
   	//This will be the logic commands
@@ -93,23 +66,12 @@ class Index extends Component {
   }
 
   handleSubmit(){
-  	var context = this;
-    var val = this.state.text
-    axios.get('http://localhost:3000/restaurant/listings', {
-      headers: {
-        'Access-Control-Allow-Origin': true
-      }
-    })
-    .then(data => {
-    	context.setState({ fetchedRestaurants: true });
-    	console.log('asdfasdfasd', data)
-    })
-    .catch( err => { throw new Error(err)})
+			Listings()
+			.then(data => this.setState({restaurants: data.data.items}, console.log(this.state.restaurants)))
   }
 
 	render() {
 
-		console.log('listings', Listings());
 		console.log('availability of restaurant', Availability(334879, {
 			start_date_time : '2017-03-29T19:00',
 			party_size: 2,
@@ -149,7 +111,7 @@ class Index extends Component {
     			)}
         </section>
         {this.state.fetchedRestaurants && (
-    			<RestaurantList restaurants={this.state.restaurants} />
+					<RestaurantList handleClick={this.handleClick} restaurants={this.state.restaurants} />
     		)}
 
       </main>
