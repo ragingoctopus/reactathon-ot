@@ -18,15 +18,7 @@ class Index extends Component {
     	text: '',
       showText: true,
       fetchedRestaurants: true,
-      restaurants: [{
-      	name: "Cooking With Sherman",
-      	address: "2408 GitHub St.",
-      	city: "San Francisco",
-      	state: "CA",
-      	postal_code: "94102",
-      	phone_number: "1234567",
-      	reservation_url: "https://www.google.com"
-      }]
+      restaurants: []
     };
   }
 	handleClick(restaurantId){
@@ -45,10 +37,6 @@ class Index extends Component {
   voiceResult(result) {
   	let context = this;
   	console.log("Result: " + result);
-  	//Logic key words to do actions
-  	//Reserve
-  	//Cancel
-  	//Search
 
   	let resultArray = result.toLowerCase().split(' ');
   	//This will be the logic commands
