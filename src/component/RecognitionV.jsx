@@ -46,8 +46,10 @@ export default class RecognitionV extends Component {
   render () {
     return (
       <div className="speech-container">
-      	<a onClick={this.microphoneBtnClick.bind(this)} className="waves-effect waves-light speech-button"><i className={`fa fa-${this.state.icon} fa-5x icon`}></i></a>
-
+        <a onClick={()=> {
+          this.microphoneBtnClick.call(this)
+          this.props.onListen()
+        }} className="waves-effect waves-light speech-button"><i className={`fa fa-${this.state.icon} fa-5x icon`}></i></a>
         {this.state.start && (
           <VoiceRecognition
             onStart={this.onStart}
