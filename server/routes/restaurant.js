@@ -52,11 +52,10 @@ router.get('/listings', (req, res) => {
     json: true
   };
 
-  console.log(options)
+  console.log(" ".charCodeAt())
 
   rp(options)
     .then(response => {
-      console.log("=====")
       if (!name) {
         return res.status(200).send(response.items);
       }
@@ -71,6 +70,7 @@ router.get('/listings', (req, res) => {
 });
 
 router.post('/notification', (req, res) => {
+  const spec = req.body;
   const options = {
     uri: 'https://ag42c3g0c2.execute-api.us-east-1.amazonaws.com/dev/sns',
     mehtod: 'GET',
