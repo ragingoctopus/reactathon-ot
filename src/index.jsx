@@ -93,23 +93,25 @@ class Index extends Component {
   }
 
   handleSubmit(){
-  	var context = this;
-    var val = this.state.text
-    axios.get('http://localhost:3000/restaurant/listings', {
-      headers: {
-        'Access-Control-Allow-Origin': true
-      }
-    })
-    .then(data => {
-    	context.setState({ fetchedRestaurants: true });
-    	console.log('asdfasdfasd', data)
-    })
-    .catch( err => { throw new Error(err)})
+				// console.log('listings', );
+				Listings()
+				.then(data => this.setState({restaurants: data.data.items}))
+  	// var context = this;
+    // var val = this.state.text
+    // axios.get('http://localhost:3000/restaurant/listings', {
+    //   headers: {
+    //     'Access-Control-Allow-Origin': true
+    //   }
+    // })
+    // .then(data => {
+    // 	context.setState({ fetchedRestaurants: true });
+    // 	console.log('asdfasdfasd', data)
+    // })
+    // .catch( err => { throw new Error(err)})
   }
 
 	render() {
 
-		console.log('listings', Listings());
 		console.log('availability of restaurant', Availability(334879, {
 			start_date_time : '2017-03-29T19:00',
 			party_size: 2,
