@@ -7,7 +7,7 @@ var moment = require('moment');
 var rp = require('request-promise');
 
 var headers = {
-  Authorization: 'bearer 27037c67-f394-4cfd-ab51-069ac71132fb'
+  Authorization: 'bearer 27037c67-f394-4cfd-ab51-069ac71132fb'
 };
 
 router.get('/availability/:id', (req, res) => {
@@ -52,8 +52,11 @@ router.get('/listings', (req, res) => {
     json: true
   };
 
+  console.log(options)
+
   rp(options)
     .then(response => {
+      console.log("=====")
       if (!name) {
         return res.status(200).send(response.items);
       }
