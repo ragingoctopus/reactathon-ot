@@ -2,6 +2,7 @@ var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
 var rp = require('request-promise');
 
@@ -29,12 +30,11 @@ router.get('/availability/:id', (req, res) => {
 
   rp(options)
     .then(response => {
-      const urls = [];
-      const result = JSON.parse(response)
-      _.each(result.times_available, obj => {
-        urls.push(obj.booking_url);
-      })
-      return res.status(200).send(urls);
+      const result = JSON.parse(response).times_available;
+      _.each(result, obj => {
+        obj.time = moment(obj.time).format('YYYY/MM/DD h:mm');
+      });
+      return res.status(200).send(result);
     })
     .catch(err => {
       return res.status(400).send(err.message);
