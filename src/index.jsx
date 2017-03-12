@@ -22,6 +22,7 @@ class Index extends Component {
       fetchedRestaurants: true,
       restaurantTime: {
         name: '',
+        id: '',
         data: []
       },
       restaurants: []
@@ -44,6 +45,7 @@ class Index extends Component {
       context.setState({
         restaurantTime: {
           name: name,
+          id: restaurantId,
           data: res.data
         }
       })

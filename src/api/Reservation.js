@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getReservation = (options) => {
+const getReservation = (options, cb) => {
   const lockUrl = 'http://localhost:3000/reservation/lock';
   console.log('getting lock for ', options);
 
@@ -10,7 +10,7 @@ const getReservation = (options) => {
     date_time: options.date_time
   };
 
-  axios.post(lockUrl, lockOptions)
+  axios.post(lockUrl, lockOptions, cb)
     .then((res) => {
       console.log('lock', res);
       return res;
@@ -32,9 +32,12 @@ const getReservation = (options) => {
       axios.post(reserveUrl, resOptions)
         .then((res) => {
           console.log('reservation details', res);
+          cb(res, null);
           return res;
         });
-    })
+    }).catch(function (error) {
+      cb(null, error)
+    });
 
 }
 
