@@ -90,7 +90,7 @@ class Index extends Component {
 			Listings.getAllListing()
 			.then(data => {
         this.setState({
-          restaurants: data.data
+          restaurants: data.data.items
         }, 
           //context.playBackNames.bind(context)
         )
@@ -100,7 +100,7 @@ class Index extends Component {
       .then(data => {
         console.log(data)
         this.setState({
-          restaurants: data.data
+          restaurants: data.data.items
         }, 
           //context.playBackNames.bind(context)
           //console.log(this.state.restaurants)

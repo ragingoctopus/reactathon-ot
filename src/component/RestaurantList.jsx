@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Restaurant from './Restaurant'
+import Restaurant from './Restaurant.jsx'
 import Modal from './Modal'
 export default class RestaurantList extends Component {
 	render() {
 		const { restaurants, handleClick, restaurantTime } = this.props;
-		const mappedRestaurants = restaurants.map((restaurant, key) => {
+		console.log('restaurants', restaurants)
+		const mappedRestaurants = restaurants.map((restaurant, i) => {
 			return (
-				<Restaurant key={key} restaurant={restaurant} handleClick={handleClick} />
+				<Restaurant key={i} restaurant={restaurant} handleClick={handleClick} />
 			)
 		});
 
