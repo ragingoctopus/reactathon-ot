@@ -131,7 +131,6 @@ img {
   .restaurant-list-item {
     display: inline-block;
     width: 45%;
-    height: 150px;
     background-color: white;
     border-radius: 5px;
     padding: 10px;
