@@ -7,6 +7,7 @@ import axios from 'axios';
 import './css/index.css';
 import Listings from './api/Listings';
 import Availability from './api/Availability';
+import Reservation from './api/Reservation';
 
 class Index extends Component {
   constructor(){
@@ -80,12 +81,21 @@ class Index extends Component {
 
 	render() {
 
-		// console.log('availability of restaurant', Availability(334879, {
-		// 	start_date_time : '2017-03-29T19:00',
-		// 	party_size: 2,
-		// 	forward_minutes: 120,
-		// 	backward_minutes: 30
-		// }));
+		console.log('availability of restaurant', Availability(334879, {
+			start_date_time : '2017-03-29T19:00',
+			party_size: 2,
+			forward_minutes: 120,
+			backward_minutes: 30
+		}));
+		console.log('make reservation', Reservation({
+			"first_name": "Steve",
+			"last_name": "Zhou",
+			"phone_number": 1112223333,
+			"email": "stevezhou@example.com",
+		  "party_size": 2,
+		  "date_time": "2017-03-30T18:15",
+		  "restaurant_id": 334879
+		}));
 
 	  return (
 		<div>
