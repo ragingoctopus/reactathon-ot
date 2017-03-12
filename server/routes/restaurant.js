@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser');
+
 var rp = require('request-promise');
 
 var headers = {
@@ -28,12 +30,12 @@ router.get('/availability/:id', (req, res) => {
 
   rp(options)
     .then(response => {
-      console.log('avail response', response)
-      return res.status(200).send(response)
+      // console.log('avail response', response)
+      return res.status(200).send(response);
     })
     .catch(err => {
-      console.log(err)
-      return res.send(400)
+      // console.log(err)
+      return res.status(400).send(err.message);
     })
 });
 
@@ -49,11 +51,11 @@ router.get('/listings', (req, res) => {
   rp(options)
     .then(response => {
       // console.log(response)
-      return res.status(200).send(response)
+      return res.status(200).send(response);
     })
     .catch(err => {
-      console.log(err)
-      return res.send(400)
+      // console.log(err)
+      return res.status(400).send(err.message);
     })
 });
 

@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const restaurant = require('./routes/restaurant');
+const reservation = require('./routes/reservation');
 
 app.use(express.static('dist'))
 
@@ -16,6 +17,7 @@ app.use(function(req, res, next) {
 
 app.use(cors());
 app.use('/restaurant', restaurant);
+app.use('/reservation', reservation);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
