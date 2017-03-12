@@ -3,6 +3,8 @@ import Restaurant from './Restaurant.jsx'
 import Modal from './Modal'
 export default class RestaurantList extends Component {
 	render() {
+		var context = this
+		console.log(this.props)
 		const { restaurants, handleClick, restaurantTime } = this.props;
 		console.log('restaurants', restaurants)
 		const mappedRestaurants = restaurants.map((restaurant, i) => {
@@ -16,7 +18,7 @@ export default class RestaurantList extends Component {
 				<ul className='restaurant-list'>
 					{mappedRestaurants}
 				</ul>
-				<Modal restaurantTime={this.props.restuarantTime}/>
+				<Modal restaurantTime={this.props.restuarantTime} modalInst={this.props.modalInst}/>
 			</section>
 		)
 	}

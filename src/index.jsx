@@ -26,12 +26,24 @@ class Index extends Component {
         data: []
       },
       restaurants: [],
-      listening: false
+      listening: false,
+      inst: '',
     };
   }
+
+  componentDidMount() {
+    let context = this;
+    $( document ).ready(function() {
+      context.setState({
+        inst:$('[data-remodal-id=modal]').remodal()
+      })
+    });
+  }
+
   onListen(){
     this.setState({ listening: !this.state.listening})
   }
+
 	handleClick(restaurantId, name){
     var context = this;
 		var d = new Date();
@@ -72,10 +84,15 @@ class Index extends Component {
         });
   			break;
       case "reserve":
-        console.log("Test");
+        console.log("Reserve");
+
         resultArray.shift()
-        context.playBackTimes(resultArray.join(' '));
+        context.openReserveVoice(resultArray.join(' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))
         break;
+      case "play":
+        if (result.toLowerCase() === "play restaurant names") {
+          context.playBackNames();
+        }
   		default:
   			break;
   	}
@@ -141,6 +158,7 @@ class Index extends Component {
       context.setState({
         restaurantTime: {
           name: name,
+          id: 334879,
           data: res.data
         }
       }, () => {
@@ -157,8 +175,25 @@ class Index extends Component {
 
   }
 
-  sendTextNotification() {
-    Notification('+19495004259', 'Cafe Tiramisu', '2017/3/12 17:00')
+  openReserveVoice(name) {
+    let context = this;
+        var options = {
+      start_date_time: '2017-03-29T20:00',
+      forward_minutes: 8000,
+      backward_minutes: 8000,
+      party_size: 2
+    }
+    Availability(334879, options).then((res) => {
+      context.setState({
+        restaurantTime: {
+          name: name,
+          id: 334879,
+          data: res.data
+        }
+      }, () => {
+        context.state.inst.open();
+      })
+    })
   }
 
 	render() {
@@ -217,7 +252,7 @@ class Index extends Component {
           <img src='../lib/ellipsis.svg' className={this.state.listening === true? '' : 'hide'}/>
         </section>
         {this.state.fetchedRestaurants && (
-					<RestaurantList restuarantTime={this.state.restaurantTime} handleClick={this.handleClick.bind(this)} restaurants={this.state.restaurants} />
+					<RestaurantList restuarantTime={this.state.restaurantTime} handleClick={this.handleClick.bind(this)} restaurants={this.state.restaurants} modalInst={this.state.inst}/>
     		)}
 
       </main>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Restaurant = (props) => {
 	var { restaurant, handleClick } = props
-	var inst = $('[data-remodal-id=modal]').remodal();
+	
 	const choiceWinner = restaurant.rating + 2 === 5 ? <img style={{height: '75px'}} src='http://newhaven.tarrylodge.com/wp-content/uploads/sites/18/2015/08/Diners-Choice-740x380.png'/> : '';
 	var stars = []
 	var otherStars = restaurant.rating

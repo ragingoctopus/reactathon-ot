@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Reservation from '../api/Reservation';
 import Notification from '../api/Notification';
+import VoicePlayer from '../lib/js/VoicePlayer';
 
 export default class Modal extends Component {
 	constructor (props) {
@@ -9,7 +10,9 @@ export default class Modal extends Component {
     	bookShow: false,
     	message: '',
     	dateSelectShow: true,
-    	date: ''
+    	date: '',
+    	playVoice: false,
+    	voiceText: '',
     }
   }
 
@@ -77,12 +80,22 @@ export default class Modal extends Component {
   	let phoneNumber = $('.reserve-number').val();
 
   	Notification(`+1${phoneNumber}`, this.props.restaurantTime.name, time, () => {
+  		context.setState({
+  			voiceText: 'Reservation Complete Text Message Sent'
+  		}, () => {
+  			context.setState({
+  				playVoice: true
+  			})
+  		})
   		console.log("success");
   	})
   }
 
+  onEnd() {
+  	this.props.modalInst.close();
+  }
+
   render() {
-  	console.log(this.props)
   	const restaurantTimeArr = this.props.restaurantTime.data.map((data, key) => {
 			return (
 				<li>
@@ -128,6 +141,13 @@ export default class Modal extends Component {
 			    </ul>
 			  	}
   		  <button onClick={this.cancelBtn.bind(this)} data-remodal-action="cancel" className="remodal-cancel">Cancel</button>
+  		  {this.state.playVoice && (
+          <VoicePlayer
+          play
+          text={this.state.voiceText}
+          onEnd={this.onEnd.bind(this)}
+          />
+        )}
   		</div>
   	)
   }
