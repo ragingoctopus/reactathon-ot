@@ -10,6 +10,18 @@ export default class RecognitionV extends Component {
     }
   }
 
+  microphoneBtnClick() {
+  	if (this.state.start === false) {
+  		this.setState({
+  			start: true
+  		})
+  	} else {
+  		this.setState({
+  			end: true
+  		})
+  	}
+  }
+
   onEnd() {
     this.setState({ start: false, stop: false })
     //this.props.action('end')()
@@ -19,7 +31,7 @@ export default class RecognitionV extends Component {
     //const result = finalTranscript
 
     this.setState({ start: false })
-    console.log(finalTranscript);
+    this.props.voiceResult(finalTranscript);
     //this.props.action('result')(finalTranscript)
   }
 
@@ -30,8 +42,7 @@ export default class RecognitionV extends Component {
   render () {
     return (
       <div>
-        <button onClick={() => this.setState({ start: true })}>start</button>
-        <button onClick={() => this.setState({ stop: true })}>stop</button>
+      	<a onClick={this.microphoneBtnClick.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-microphone fa-5x icon"></i></a>
 
         {this.state.start && (
           <VoiceRecognition
