@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RecognitionV from './component/RecognitionV';
 import VoicePlayer from './lib/VoicePlayer';
+import axios from 'axios';
 import './css/index.css';
 
 class Index extends Component {
-	constructor (props) {
-    super(props)
+  constructor(){
+    super()
     this.state = {
     	showText: true,
     	playVoice: false,
     	voiceText: '',
+    	text: '',
+      showText: true
     };
   }
 
@@ -25,6 +28,17 @@ class Index extends Component {
   	this.setState({ playVoice: false });
   }
 
+  handleSubmit(){
+    var val = this.state.text
+    axios.get('http://localhost:3000/restaurant/list', {
+      headers: {
+        'Access-Control-Allow-Origin': true
+      }
+    })
+    .then(data => console.log('asdfasdfasd', data))
+    .catch( err => { throw new Error(err)})
+  }
+
 	render() {
 	  return (
 		<div>
@@ -33,8 +47,22 @@ class Index extends Component {
             <img src="http://res.cloudinary.com/meetshermanchen-com/image/upload/v1489262593/Logo_horizontal_RGB_rrnfhk.png" alt="OpenTable" className="brand"/>
         </header>
         <section className="searchbar">
-          <form>
-            <input className="search" type="text" placeholder="Search for dining"/>
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            console.log(this.state.text)
+            this.handleSubmit()
+          }}>
+            <input 
+              className="search" 
+              type="text" 
+              placeholer="Search for dining"
+              vaue={this.state.text}
+              onChange={(e) => this.setState({text: e.target.value})}
+            />
+            <input 
+              type='submit' 
+              value='submit' 
+            />
           </form>
         </section>
         <section className="content-container speech-button">
