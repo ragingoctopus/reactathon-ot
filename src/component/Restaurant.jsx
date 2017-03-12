@@ -1,9 +1,4 @@
 import React from 'react';
-//import FaBeer from 'react-icons/fa/beer';
-
-// import FaStar from 'react-icons/fa/star';
-// import FaStarHalf from 'react-icons/fa/star-half';
-
 
 const Restaurant = (props) => {
 	var { key, restaurant, handleClick } = props
