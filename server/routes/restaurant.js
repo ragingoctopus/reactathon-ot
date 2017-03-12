@@ -27,6 +27,38 @@ router.get(API.SEARCH, (req, res) => {
       backward_minutes: spec.backward_minutes,
       party_size: spec.party_size
     }
+
+var headers = {
+  Authorization: 'bearer 27037c67-f394-4cfd-ab51-069ac71132fb'
+};
+
+router.get('/list', (req, res) => {
+  console.log('GET /list');
+  const options = {
+    uri: 'https://platform.otqa.com/sync/listings',
+    method: 'GET',
+    headers: headers,
+    json: true
+  }
+  rp(options)
+    .then(response => {
+      console.log(response)
+      return res.status(200).send(response)
+    })
+    .catch(err => {
+      console.log(err)
+      return res.send(400)
+    })
+})
+
+
+router.get('/availability', (req, res) => {
+  console.log('POST /availability');
+  const options = {
+    uri: 'https://platform.otqa.com/availability/334879?start_date_time=2017-03-29T18%3A00&party_size=2&forward_minutes=120&backward_minutes=30',
+    method: 'POST',
+    headers: headers,
+    json: true
   }
 
   rp(options)
