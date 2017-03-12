@@ -9,7 +9,8 @@ class Index extends Component {
   constructor(){
     super()
     this.state = {
-      text: ''
+      text: '',
+      showText: true
     }
   }
   handleSubmit(){
