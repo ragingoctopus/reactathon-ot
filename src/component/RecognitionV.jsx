@@ -6,31 +6,35 @@ export default class RecognitionV extends Component {
     super(props)
     this.state = {
     	start: false,
-    	stop: false
+    	stop: false,
+      icon: 'microphone'
     }
   }
 
   microphoneBtnClick() {
+    console.log(this.state.icon)
   	if (this.state.start === false) {
   		this.setState({
-  			start: true
+  			start: true,
+        icon: 'pause'
   		})
   	} else {
   		this.setState({
-  			end: true
+  			end: true,
+        icon: 'microphone'
   		})
   	}
   }
 
   onEnd() {
-    this.setState({ start: false, stop: false })
+    this.setState({ start: false, stop: false})
     //this.props.action('end')()
   }
 
   onResult({ finalTranscript }) {
     //const result = finalTranscript
 
-    this.setState({ start: false })
+    this.setState({ start: false})
     this.props.voiceResult(finalTranscript);
     //this.props.action('result')(finalTranscript)
   }
@@ -42,7 +46,7 @@ export default class RecognitionV extends Component {
   render () {
     return (
       <div className="speech-container">
-      	<a onClick={this.microphoneBtnClick.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-microphone fa-5x icon"></i></a>
+      	<a onClick={this.microphoneBtnClick.bind(this)} className="waves-effect waves-light speech-button"><i className={`fa fa-${this.state.icon} fa-5x icon`}></i></a>
 
         {this.state.start && (
           <VoiceRecognition
@@ -51,7 +55,7 @@ export default class RecognitionV extends Component {
             onResult={this.onResult.bind(this)}
             continuous={true}
             lang="en-US"
-            stop={this.state.stop}
+            stop={this.onEnd.bind(this)}
           />
         )}
       </div>

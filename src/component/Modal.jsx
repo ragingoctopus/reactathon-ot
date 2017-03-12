@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 export default class Modal extends Component {
 	constructor (props) {
     super(props)
-
+    this.state = {
+    	
+    }
   }
-
+  
   render() {
   	console.log(this.props)
   	const restaurantTimeArr = this.props.restaurantTime.data.map((data, key) => {
@@ -13,7 +15,7 @@ export default class Modal extends Component {
 				<li>
 					<div className="modal-item-container">
 						<div className="modal-restaurant-time">{data.time}</div>
-						<div className="modal-restaurant-url"><a className="waves-effect waves-light waves-red btn" href={data.booking_url} target="_blank">Book</a></div>
+						<div className="modal-restaurant-url"><a className="waves-effect waves-light waves-red btn" target="_blank">Book</a></div>
 					</div>
 				</li>
 			)
