@@ -9,14 +9,14 @@ export default class RestaurantList extends Component {
 		const { restaurants, handleClick } = this.props;
 		const mappedRestaurants = restaurants.map((restaurant, key) => {
 			return (
-				<li key={key} className="restaurant-list">
+				<li key={key} className="restaurant-list-item">
 					<h4>{restaurant.name}</h4>
 					<p>{restaurant.address}, {restaurant.city}, {restaurant.state}, {restaurant.postal_code}</p>
 					<a 
 						onClick={() => handleClick(restaurant.rid)}
 						className="restaurant-url" 
 					>
-						Make Reservation
+						Find Reservation
 					</a>
 					<a className="restaurant-tel" href={`tel:${restaurant.phone_number}`}>{restaurant.phone_number}</a>
 				</li>
@@ -25,7 +25,7 @@ export default class RestaurantList extends Component {
 
 		return (
 			<section>
-				<ul>
+				<ul className='restaurant-list'>
 					{mappedRestaurants}
 				</ul>
 			</section>

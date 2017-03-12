@@ -102,14 +102,27 @@ img {
     background-color: #DA3743;
    }
 
-  .restaurant-list {
+  .restaurant-list-item {
     display: inline-block;
-    width: 33%;
-    height: 250px;
+    width: 45%;
+    height: 150px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: .5px .5px 5px;
   }
+
+  .restaurant-list {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
 /**** MEDIA QUERIES ****/
 @media screen and (max-width: 900px) {
-  .restaurant-list {
+  .restaurant-list-item {
     display: inline-block;
     width: 49%;
     height: 250px;
@@ -134,7 +147,7 @@ img {
       margin-bottom: 10vh;
     }
 
-    .restaurant-list {
+    .restaurant-list-item {
       display: inline-block;
       width: 100%;
       height: 250px;
