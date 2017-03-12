@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RecognitionV from './component/RecognitionV';
+import { VoicePlayer } from 'react-voice-components'
+import axios from 'axios';
 import './css/index.css';
 
 class Index extends Component {
-	constructor (props) {
-    super(props)
+  constructor(){
+    super()
     this.state = {
-    	showText: true
-    };
+      text: '',
+      showText: true
+    }
   }
-
+  handleSubmit(){
+    var val = this.state.text
+    axios.get('http://localhost:3000/restaurant/list', {
+      headers: {
+        'Access-Control-Allow-Origin': true
+      }
+    })
+    .then(data => console.log('asdfasdfasd', data))
+    .catch( err => { throw new Error(err)})
+  }
 	render() {
 	  return (
 		<div>
@@ -21,8 +33,22 @@ class Index extends Component {
           </section>
         </header>
         <section className="searchbar">
-          <form>
-            <input className="search" type="text" placeholder="Search for dining"/>
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            console.log(this.state.text)
+            this.handleSubmit()
+          }}>
+            <input 
+              className="search" 
+              type="text" 
+              placeholer="Search for dining"
+              vaue={this.state.text}
+              onChange={(e) => this.setState({text: e.target.value})}
+            />
+            <input 
+              type='submit' 
+              value='submit' 
+            />
           </form>
         </section>
         <section className="content-contai
