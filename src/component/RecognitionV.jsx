@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import VoiceRecognition from '../lib/VoiceRecognition'
+import VoiceRecognition from '../lib/js/VoiceRecognition'
 
 export default class RecognitionV extends Component {
 	constructor (props) {
