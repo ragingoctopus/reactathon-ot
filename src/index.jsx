@@ -88,7 +88,7 @@ class Index extends Component {
     if (resName === '' || resName === 'All') {
 			Listings.getAllListing()
 			.then(data => {
-        var newData = data.data.items.map(item => {
+        var newData = data.data.map(item => {
           item.rating = Math.round(Math.random() * 3);
           item.half = Math.random() > .5 ? true : false;
           return item
@@ -100,7 +100,7 @@ class Index extends Component {
     } else {
       Listings.getListings(resName)
       .then(data => {
-        var newData = data.data.items.map(item => {
+        var newData = data.data.map(item => {
           item.rating = Math.round(Math.random() * 3);
           item.half = Math.random() > .5 ? true : false;
           return item
