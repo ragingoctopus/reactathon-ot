@@ -89,22 +89,28 @@ class Index extends Component {
     if (resName === '' || resName === 'All') {
 			Listings.getAllListing()
 			.then(data => {
+        var newData = data.data.items.map(item => {
+          item.rating = Math.round(Math.random() * 3);
+          item.half = Math.random() > .5 ? true : false;
+          item.winner = Math.random() > .7 ? true :false
+          return item
+        })
         this.setState({
-          restaurants: data.data
-        }, 
-          //context.playBackNames.bind(context)
-        )
+          restaurants: newData
+        })
       })
     } else {
       Listings.getListings(resName)
       .then(data => {
-        console.log(data)
+        var newData = data.data.items.map(item => {
+          item.rating = Math.round(Math.random() * 3);
+          item.half = Math.random() > .5 ? true : false;
+          item.winner = Math.random() > .7 ? true :false
+          return item
+        })
         this.setState({
-          restaurants: data.data
-        }, 
-          //context.playBackNames.bind(context)
-          //console.log(this.state.restaurants)
-        )
+          restaurants: newData
+        })
       })
     }
   }
