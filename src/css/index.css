@@ -63,6 +63,10 @@ img {
   margin-bottom: 3vh;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 .speech-button {
   display: flex;
   justify-content: center;
@@ -141,7 +145,7 @@ img {
   }
 
   .restaurant-list {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;

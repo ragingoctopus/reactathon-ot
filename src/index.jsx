@@ -25,8 +25,12 @@ class Index extends Component {
         id: '',
         data: []
       },
-      restaurants: []
+      restaurants: [],
+      listening: false
     };
+  }
+  onListen(){
+    this.setState({ listening: !this.state.listening})
   }
 	handleClick(restaurantId, name){
     var context = this;
@@ -55,7 +59,6 @@ class Index extends Component {
   voiceResult(result) {
   	let context = this;
   	console.log("Result: " + result);
-
   	let resultArray = result.toLowerCase().split(' ');
   	//This will be the logic commands
   	let keyword = resultArray[0];
@@ -197,21 +200,21 @@ class Index extends Component {
             <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
           </form>
         </section>
-        <section>
-        	<RecognitionV voiceResult={this.voiceResult.bind(this)}/>
-        	{this.state.playVoice && (
-        		<VoicePlayer
-        	  play
-    				text={this.state.voiceText}
-    				onEnd={this.onEnd.bind(this)}
-    				/>
-    			)}
-          <div className="speech-container">
-            <a onClick={this.playBackNames.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-play fa-5x icon"></i></a>
-          </div>
-          <div className="speech-container">
-            <a onClick={this.sendTextNotification.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-envelope fa-5x icon"></i></a>
-          </div>
+        <section style={{textAlign:'center'}}>
+          <section>
+            <RecognitionV onListen={this.onListen.bind(this)} voiceResult={this.voiceResult.bind(this)}/>
+            {this.state.playVoice && (
+              <VoicePlayer
+              play
+              text={this.state.voiceText}
+              onEnd={this.onEnd.bind(this)}
+              />
+            )}
+            <div className="speech-container">
+              <a onClick={this.playBackNames.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-play fa-5x icon"></i></a>
+            </div>
+          </section>
+          <img src='../lib/ellipsis.svg' className={this.state.listening === true? '' : 'hide'}/>
         </section>
         {this.state.fetchedRestaurants && (
 					<RestaurantList restuarantTime={this.state.restaurantTime} handleClick={this.handleClick.bind(this)} restaurants={this.state.restaurants} />
