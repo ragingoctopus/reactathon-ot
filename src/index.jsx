@@ -31,16 +31,16 @@ class Index extends Component {
   }
 	handleClick(restaurantId){
 		var d = new Date();
-var n = d.toISOString();
-n = n.substring(0, 16);
+		var n = d.toISOString();
+		n = n.substring(0, 16);
 		var options = {
-			start_date_time: n,
-      forward_minutes: 180,
-      backward_minutes: 60,
+			start_date_time: '2017-03-29T19:00',
+      forward_minutes: 120,
+			backward_minutes: 30,
       party_size: 2
 		}
 		console.log(restaurantId,'restaurantIdrestaurantIdrestaurantId')
-		Availability(restaurantId, options)
+		Availability(334879, options)
 	}
   voiceResult(result) {
   	let context = this;
