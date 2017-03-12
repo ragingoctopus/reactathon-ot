@@ -3,8 +3,9 @@ body {
   background-color: #F7F7F7;
   font-family: 'Open Sans', sans-serif;
 }
-p { 
+ .info { 
   font-size: 15px;
+  margin-left:20px;
 }
 
 img {
@@ -86,6 +87,7 @@ img {
 
 .restaurant-url, .restaurant-tel {
   font-size: 16px;
+  margin-left: 20px;
   display: inline-block;
 }
 /***** MATERIALIZE OVERRIDES ***/

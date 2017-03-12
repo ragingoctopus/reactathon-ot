@@ -5,9 +5,9 @@ export default class RestaurantList extends Component {
 	render() {
 		const { restaurants, handleClick, restaurantTime } = this.props;
 		console.log('restaurants', restaurants)
-		const mappedRestaurants = restaurants.map((restaurant, key) => {
+		const mappedRestaurants = restaurants.map((restaurant, i) => {
 			return (
-				<Restaurant key={key} restaurant={restaurant} handleClick={handleClick} />
+				<Restaurant key={i} restaurant={restaurant} handleClick={handleClick} />
 			)
 		});
 
