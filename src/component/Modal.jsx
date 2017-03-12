@@ -8,15 +8,26 @@ export default class Modal extends Component {
 
   render() {
   	console.log(this.props)
+  	const restaurantTimeArr = this.props.restaurantTime.data.map((data, key) => {
+			return (
+				<li>
+					<div className="modal-item-container">
+						<div className="modal-restaurant-time">{data.time}</div>
+						<div className="modal-restaurant-url"><a className="waves-effect waves-light waves-red btn" href={data.booking_url} target="_blank">Book</a></div>
+					</div>
+				</li>
+			)
+		});
+
   	return (
-  		<div className="remodal" data-remodal-id="modal">
+  		<div className="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
   		  <button data-remodal-action="close" className="remodal-close"></button>
-  		  <h1>Remodal</h1>
-  		  <p>
-  		    {this.props.restaurantTime.name}
-  		  </p>
+  		  <h3>Availability</h3>
+  		  	<h5>{this.props.restaurantTime.name}</h5>
+			  	<ul>
+			    {restaurantTimeArr}
+			    </ul>
   		  <button data-remodal-action="cancel" className="remodal-cancel">Cancel</button>
-  		  <button data-remodal-action="confirm" className="remodal-confirm">OK</button>
   		</div>
   	)
   }

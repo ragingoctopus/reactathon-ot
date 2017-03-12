@@ -23,10 +23,31 @@ img {
   padding: 2rem;
 }
 
+.modal-item-container {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.modal-restaurant-time {
+  font-size: 15px;
+  padding-right: 20px;
+  display: inline-block;
+}
+
+.modal-restaurant-url {
+  display: inline-block;
+}
+
 .content-container {
   background-color: #FFFFFF;
   border: 2px solid #DA3743;
   margin-bottom: 3rem;
+}
+
+.speech-container {
+  display: inline-block;
 }
 
 .header {

@@ -20,29 +20,35 @@ class Index extends Component {
       showText: true,
       fetchedRestaurants: true,
       restaurantTime: {
-        cool: "test"
+        name: '',
+        data: []
       },
       restaurants: []
     };
   }
-	handleClick(restaurantId){
+	handleClick(restaurantId, name){
+    var context = this;
 		var d = new Date();
 		var n = d.toISOString();
 		n = n.substring(0, 16);
 		var options = {
-			start_date_time: '2017-03-29T19:00',
-      forward_minutes: 120,
-			backward_minutes: 30,
+			start_date_time: '2017-03-29T20:00',
+      forward_minutes: 8000,
+			backward_minutes: 8000,
       party_size: 2
 		}
 		console.log(restaurantId,'restaurantIdrestaurantIdrestaurantId')
-    this.setState({
-      restaurantTime: {
-        name: restaurantId
-      }
+    Availability(334879, options).then((res) => {
+      console.log('availability', res);
+      context.setState({
+        restaurantTime: {
+          name: name,
+          data: res.data
+        }
+      })
     })
-		Availability(334879, options)
 	}
+
   voiceResult(result) {
   	let context = this;
   	console.log("Result: " + result);
@@ -50,52 +56,117 @@ class Index extends Component {
   	let resultArray = result.toLowerCase().split(' ');
   	//This will be the logic commands
   	let keyword = resultArray[0];
+    console.log(keyword);
   	switch (keyword) {
   		case "search": 
-  			this.setState({
-  				restaurants: [{
-  					name: resultArray[1]
-  				}]
-  			},
-  			context.handleSubmit()
-  			)
-  			
+        resultArray.shift()
+  			context.handleSubmit(resultArray.join(' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))
+        this.setState({ voiceText:result }, () => {
+          this.setState({ playVoice: true });
+        });
   			break;
+      case "reserve":
+        console.log("Test");
+        resultArray.shift()
+        context.playBackTimes(resultArray.join(' '));
+        break;
   		default:
   			break;
   	}
 
-  	this.setState({ voiceText:result }, () => {
-  		this.setState({ playVoice: true });
-  	});
+
   }
 
   onEnd() {
   	this.setState({ playVoice: false });
   }
 
-  handleSubmit(){
-			Listings()
-			.then(data => this.setState({restaurants: data.data.items}, console.log(this.state.restaurants)))
+  handleSubmit(name){
+    let context = this;
+    let resName = name || this.state.text;
+    console.log("ResName: " + resName);
+    if (resName === '' || resName === 'All') {
+			Listings.getAllListing()
+			.then(data => {
+        this.setState({
+          restaurants: data.data
+        }, 
+          //context.playBackNames.bind(context)
+        )
+      })
+    } else {
+      Listings.getListings(resName)
+      .then(data => {
+        console.log(data)
+        this.setState({
+          restaurants: data.data
+        }, 
+          //context.playBackNames.bind(context)
+          //console.log(this.state.restaurants)
+        )
+      })
+    }
+  }
+
+  playBackNames() {
+    let context = this;
+    let restaurantNames = '';
+    this.state.restaurants.map((restaurant, key) => {
+      restaurantNames += '' + restaurant.name;
+    })
+
+    context.setState({ voiceText:restaurantNames }, () => {
+      context.setState({ playVoice: true });
+    });
+  }
+
+  playBackTimes(name) {
+    let context = this;
+    var options = {
+      start_date_time: '2017-03-29T20:00',
+      forward_minutes: 8000,
+      backward_minutes: 8000,
+      party_size: 2
+    }
+    Availability(334879, options).then((res) => {
+      context.setState({
+        restaurantTime: {
+          name: name,
+          data: res.data
+        }
+      }, () => {
+        let restaurantTimes = 'Here are the the times for ' + name;
+        context.state.restaurantTime.data.map((data, key) => {
+          restaurantTimes += '' + data.time;
+        })
+
+        context.setState({ voiceText:restaurantTimes }, () => {
+          context.setState({ playVoice: true });
+        });
+      })
+    })
+
+
+
   }
 
 	render() {
 
-		console.log('availability of restaurant', Availability(334879, {
-			start_date_time : '2017-03-29T19:00',
-			party_size: 2,
-			forward_minutes: 120,
-			backward_minutes: 30
-		}));
-		console.log('make reservation', Reservation({
-			"first_name": "Steve",
-			"last_name": "Zhou",
-			"phone_number": 1112223333,
-			"email": "stevezhou@example.com",
-		  "party_size": 2,
-		  "date_time": "2017-03-30T18:15",
-		  "restaurant_id": 334879
-		}));
+		// console.log('availability of restaurant', Availability(334879, {
+		// 	start_date_time : '2017-03-29T19:00',
+		// 	party_size: 2,
+		// 	forward_minutes: 120,
+		// 	backward_minutes: 30
+		// }));
+		// console.log('make reservation', Reservation({
+		// 	"first_name": "Steve",
+		// 	"last_name": "Zhou",
+		// 	"phone_number": 1112223333,
+		// 	"email": "stevezhou@example.com",
+		//   "party_size": 2,
+		//   "date_time": "2017-03-30T18:15",
+		//   "restaurant_id": 334879
+		// }));
 
 	  return (
 		<div>
@@ -106,7 +177,7 @@ class Index extends Component {
         <section className="searchbar">
           <form className="input-field" onSubmit={(e) => {
             e.preventDefault()
-            console.log(this.state.text)
+            //console.log(this.state.text)
             this.handleSubmit()
           }}>
             <input
@@ -118,7 +189,7 @@ class Index extends Component {
             <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
           </form>
         </section>
-        <section className="content-container speech-button">
+        <section>
         	<RecognitionV voiceResult={this.voiceResult.bind(this)}/>
         	{this.state.playVoice && (
         		<VoicePlayer
@@ -127,6 +198,9 @@ class Index extends Component {
     				onEnd={this.onEnd.bind(this)}
     				/>
     			)}
+          <div className="speech-container">
+            <a onClick={this.playBackNames.bind(this)} className="waves-effect waves-light speech-button"><i className="fa fa-play fa-5x icon"></i></a>
+          </div>
         </section>
         {this.state.fetchedRestaurants && (
 					<RestaurantList restuarantTime={this.state.restaurantTime} handleClick={this.handleClick.bind(this)} restaurants={this.state.restaurants} />

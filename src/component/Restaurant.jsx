@@ -10,8 +10,8 @@ const Restaurant = (props) => {
 			<h4>{restaurant.name}</h4>
 			<p>{restaurant.address}, {restaurant.city}, {restaurant.state}, {restaurant.postal_code}</p>
 			<a 
-				onClick={() => handleClick(restaurant.rid)}
-				data-remodal-target="modal" href="#"
+				onClick={() => handleClick(restaurant.rid, restaurant.name)}
+				data-remodal-target="modal" href=""
 				className="restaurant-url" 
 			>
 				Find Reservation
