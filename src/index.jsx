@@ -136,16 +136,6 @@ class Index extends Component {
               onChange={(e) => this.setState({text: e.target.value})}
             />
             <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
-              className="search"
-              type="text"
-              placeholder="Search for dining"
-              value={this.state.text}
-              onChange={(e) => this.setState({text: e.target.value})}
-            />
-            <input
-              type='submit'
-              value='submit'
-            />
           </form>
         </section>
         <section className="content-container speech-button">
