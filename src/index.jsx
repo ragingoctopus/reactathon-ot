@@ -4,6 +4,7 @@ import RecognitionV from './component/RecognitionV';
 import VoicePlayer from './lib/VoicePlayer';
 import axios from 'axios';
 import './css/index.css';
+import Listings from './api/Listings';
 
 class Index extends Component {
   constructor(){
@@ -40,6 +41,9 @@ class Index extends Component {
   }
 
 	render() {
+
+		console.log('listings', Listings());
+
 	  return (
 		<div>
 			<main className="main-app-container">
