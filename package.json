@@ -30,6 +30,7 @@
     "path": "^0.12.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-icons": "^2.2.3",
     "react-voice-components": "^1.0.0",
     "remodal": "^1.1.1",
     "request": "^2.81.0",

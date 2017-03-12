@@ -3,6 +3,9 @@ body {
   background-color: #F7F7F7;
   font-family: 'Open Sans', sans-serif;
 }
+p { 
+  font-size: 15px;
+}
 
 img {
   max-width: 95%;
@@ -82,7 +85,7 @@ img {
 }
 
 .restaurant-url, .restaurant-tel {
-  width: 50%;
+  font-size: 16px;
   display: inline-block;
 }
 /***** MATERIALIZE OVERRIDES ***/
@@ -155,9 +158,6 @@ img {
 
     img {
       max-width: 100%;
-    }
-    
-    .header {
     }
 
     .brand {
