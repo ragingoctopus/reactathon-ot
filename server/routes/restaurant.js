@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
@@ -40,6 +41,7 @@ router.get('/availability/:id', (req, res) => {
 });
 
 router.get('/listings', (req, res) => {
+  const name = req.query.name
   console.log('GET /listings');
   const options = {
     uri: 'https://platform.otqa.com/sync/listings',
@@ -50,11 +52,12 @@ router.get('/listings', (req, res) => {
 
   rp(options)
     .then(response => {
-      // console.log(response)
-      return res.status(200).send(response);
+      const item = _.filter(response.items, item => {
+        return item.name === name
+      })
+      return res.status(200).send(item);
     })
     .catch(err => {
-      // console.log(err)
       return res.status(400).send(err.message);
     })
 });
