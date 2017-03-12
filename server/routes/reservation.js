@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-router.use(bodyParser.json());
 
 var rp = require('request-promise');
 
@@ -11,8 +9,6 @@ var headers = {
 
 router.post('/lock', (req, res) => {
   console.log('POST /lock');
-  // console.log(req);
-
   const options = {
     uri: 'https://platform.otqa.com/booking/slot_locks',
     method: 'POST',
@@ -23,7 +19,6 @@ router.post('/lock', (req, res) => {
 
   rp(options)
     .then(response => {
-      // console.log(response)
       return res.status(200).send(response);
     })
     .catch(err => {
@@ -46,7 +41,6 @@ router.post('/reserve', (req, res) => {
 
   rp(options)
     .then(response => {
-      // console.log(response)
       return res.status(200).send(response);
     })
     .catch(err => {

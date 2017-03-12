@@ -20,18 +20,14 @@ router.get('/availability/:id', (req, res) => {
     uri: `${availUrl}/${rid}`,
     method: 'GET',
     headers: headers,
-    qs: {
-      start_date_time: spec.start_date_time,
-      forward_minutes: spec.forward_minutes,
-      backward_minutes: spec.backward_minutes,
-      party_size: spec.party_size
-    }
+    qs: spec
   };
 
   rp(options)
     .then(response => {
       const result = JSON.parse(response).times_available;
       _.each(result, obj => {
+        obj.speach_time = moment(obj.time).format('h:mm');
         obj.time = moment(obj.time).format('YYYY/MM/DD h:mm');
       });
       return res.status(200).send(result);
@@ -57,12 +53,28 @@ router.get('/listings', (req, res) => {
         return res.status(200).send(response.items);
       }
       const item = _.filter(response.items, item => {
-        return item.name.indexOf(name) > -1
+        return item.name.indexOf(name) > -1;
       })
       return res.status(200).send(item);
     })
     .catch(err => {
       return res.status(400).send(err.message);
+    })
+});
+
+router.post('/notification', (req, res) => {
+  const options = {
+    uri: 'https://ag42c3g0c2.execute-api.us-east-1.amazonaws.com/dev/sns',
+    mehtod: 'GET',
+    headers: req.body,
+    json: true
+  }
+  rp(options)
+    .then(response => {
+      return res.status(200).send(response);
+    })
+    .catch(err => {
+      return res.status(200).send(err.message);
     })
 });
 
