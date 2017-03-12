@@ -198,7 +198,7 @@ class Index extends Component {
             <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
           </form>
         </section>
-        <section style={{display:'flex', justifyContent:'center', flexDirection: 'column'}}>
+        <section style={{textAlign:'center'}}>
           <section>
             <RecognitionV onListen={this.onListen.bind(this)} voiceResult={this.voiceResult.bind(this)}/>
             {this.state.playVoice && (

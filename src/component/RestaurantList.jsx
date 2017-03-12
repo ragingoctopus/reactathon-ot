@@ -12,7 +12,7 @@ export default class RestaurantList extends Component {
 		});
 
 		return (
-			<section>
+			<section className='restaurant-list'>
 				<ul className='restaurant-list'>
 					{mappedRestaurants}
 				</ul>
