@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RecognitionV from './component/RecognitionV';
-import VoicePlayer from './lib/VoicePlayer';
+import VoicePlayer from './lib/js/VoicePlayer';
 import RestaurantList from './component/RestaurantList';
 import axios from 'axios';
 import './css/index.css';
@@ -18,6 +18,9 @@ class Index extends Component {
     	text: '',
       showText: true,
       fetchedRestaurants: true,
+      restaurantTime: {
+        cool: "test"
+      },
       restaurants: []
     };
   }
@@ -32,6 +35,11 @@ class Index extends Component {
       party_size: 2
 		}
 		console.log(restaurantId,'restaurantIdrestaurantIdrestaurantId')
+    this.setState({
+      restaurantTime: {
+        name: restaurantId
+      }
+    })
 		Availability(334879, options)
 	}
   voiceResult(result) {
@@ -72,12 +80,12 @@ class Index extends Component {
 
 	render() {
 
-		console.log('availability of restaurant', Availability(334879, {
-			start_date_time : '2017-03-29T19:00',
-			party_size: 2,
-			forward_minutes: 120,
-			backward_minutes: 30
-		}));
+		// console.log('availability of restaurant', Availability(334879, {
+		// 	start_date_time : '2017-03-29T19:00',
+		// 	party_size: 2,
+		// 	forward_minutes: 120,
+		// 	backward_minutes: 30
+		// }));
 
 	  return (
 		<div>
@@ -111,7 +119,7 @@ class Index extends Component {
     			)}
         </section>
         {this.state.fetchedRestaurants && (
-					<RestaurantList handleClick={this.handleClick} restaurants={this.state.restaurants} />
+					<RestaurantList restuarantTime={this.state.restaurantTime} handleClick={this.handleClick.bind(this)} restaurants={this.state.restaurants} />
     		)}
 
       </main>
