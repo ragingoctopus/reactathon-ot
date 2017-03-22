@@ -9,6 +9,7 @@ import Listings from './api/Listings';
 import Availability from './api/Availability';
 import Reservation from './api/Reservation';
 import Notification from './api/Notification';
+import Promotions from './api/Promotions';
 
 class Index extends Component {
   constructor(){
@@ -69,14 +70,13 @@ class Index extends Component {
 	}
 
   voiceResult(result) {
-  	let context = this;
   	console.log("Result: " + result);
   	let resultArray = result.toLowerCase().split(' ');
   	//This will be the logic commands
   	let keyword = resultArray[0];
     console.log(keyword);
   	switch (keyword) {
-  		case "search": 
+  		case "search":
         resultArray.shift()
   			context.handleSubmit(resultArray.join(' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))
         this.setState({ voiceText:result }, () => {
@@ -98,13 +98,16 @@ class Index extends Component {
   	}
 
 
+  	this.setState({ voiceText:result }, () => {
+  		this.setState({ playVoice: true });
+  	});
   }
 
   onEnd() {
   	this.setState({ playVoice: false });
   }
 
-  handleSubmit(name){
+	handleSubmit(name){
     let context = this;
     let resName = name || this.state.text;
     if (resName === '' || resName === 'All') {
@@ -198,21 +201,26 @@ class Index extends Component {
 
 	render() {
 
-		// console.log('availability of restaurant', Availability(334879, {
-		// 	start_date_time : '2017-03-29T19:00',
-		// 	party_size: 2,
-		// 	forward_minutes: 120,
-		// 	backward_minutes: 30
-		// }));
-		// console.log('make reservation', Reservation({
-		// 	"first_name": "Steve",
-		// 	"last_name": "Zhou",
-		// 	"phone_number": 1112223333,
-		// 	"email": "stevezhou@example.com",
-		//   "party_size": 2,
-		//   "date_time": "2017-03-30T18:15",
-		//   "restaurant_id": 334879
-		// }));
+		console.log('listings', Listings);
+		console.log('availability of restaurant', Availability(334879, {
+			start_date_time : '2017-03-29T19:00',
+			party_size: 2,
+			forward_minutes: 120,
+			backward_minutes: 30
+		}));
+		console.log('make reservation', Reservation({
+			"first_name": "Steve",
+			"last_name": "Zhou",
+			"phone_number": 1112223333,
+			"email": "stevezhou@example.com",
+		  "party_size": 2,
+		  "date_time": "2017-03-30T18:15",
+		  "restaurant_id": 334879
+		}));
+
+		console.log('promotions', Promotions.findPromotions());
+
+
 
 	  return (
 		<div>
@@ -221,18 +229,22 @@ class Index extends Component {
             <img src="http://res.cloudinary.com/meetshermanchen-com/image/upload/v1489262593/Logo_horizontal_RGB_rrnfhk.png" alt="OpenTable" className="brand"/>
         </header>
         <section className="searchbar">
-          <form className="input-field" onSubmit={(e) => {
+          <form onSubmit={(e) => {
             e.preventDefault()
             //console.log(this.state.text)
             this.handleSubmit()
           }}>
             <input
-              type="text" 
-              placeholder="Location or Restaurant"
+              className="search"
+              type="text"
+              placeholder="Search for dining"
               value={this.state.text}
               onChange={(e) => this.setState({text: e.target.value})}
             />
-            <button className="submit-btn waves-effect waves-light waves-red btn">Find</button>
+            <input
+              type='submit'
+              value='submit'
+            />
           </form>
         </section>
         <section style={{textAlign:'center'}}>

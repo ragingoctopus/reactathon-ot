@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 
 const restaurant = require('./routes/restaurant');
 const reservation = require('./routes/reservation');
+const promo = require('./routes/promo');
 
 app.use(express.static('dist'))
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use(function(req, res, next) {
 app.use(cors());
 app.use('/restaurant', restaurant);
 app.use('/reservation', reservation);
+app.use('/promo', promo);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
